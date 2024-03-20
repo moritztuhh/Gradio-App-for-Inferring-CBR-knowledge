@@ -12,18 +12,18 @@ app = FastAPI()
 #     # TODO: Find a way to reroute on button press
 #     pass
 
-# TODO: Make page look good (center markdown)
+# TODO styling: center title/text, adjust sizes
 def getLayoutStart() -> gr.Blocks:
     with gr.Blocks() as layout:
         gr.Markdown("""# Learning Finish""")
-        gr.Markdown("""The assisted finnish learning experience""")
-        button = gr.Button()
+        gr.Markdown("""The assisted finnish-learning experience""")
+        button = gr.Button(value= "New Game", link="/rules")
     layout.queue()
     return layout
 
 
 # TODO: Logic and Look
-def getLayout2() -> gr.Blocks:
+def getLayoutRules() -> gr.Blocks:
     with gr.Blocks() as layout:
         gr.Markdown(""" In the following, you will be presented with X finnish words in theire nominative form.
                    You will have to enter the inessive form of the words.
@@ -32,15 +32,28 @@ def getLayout2() -> gr.Blocks:
                    transformation of the words.""")
         gr.Markdown(""" At the end you will be presented with your personal score.
                    """)
-        gr.Markdown(""" After this, the AI will shpw you the cards it thinks you've seen and recommend
-                   new/other cards for the practice and to reach a higher score!""")
+        gr.Markdown(""" After this, the AI will show you the cards it thinks you've seen and recommend
+                   new/other cards for the practice and to reach a higher score.""")
+        gr.Markdown(""" Press the button below whenever you're ready to begin!
+                    """)
+        button = gr.Button(value= "Start Testing!", link="/tests")
+    layout.queue()
+    return layout
+
+# TODO: Logic and Look
+def getLayoutTests() -> gr.Blocks:
+    with gr.Blocks() as layout:
+        gr.Markdown("""# Tests 
+                    """) #TODO add test count/progress
     layout.queue()
     return layout
 
 
-block1 = getLayoutStart()
-block2 = getLayout2()
-gr.mount_gradio_app(app=app, blocks=block1, path="/block1")
-gr.mount_gradio_app(app=app, blocks=block2, path="/block2")
-
+#TODO add remaining paths
+start_screen = getLayoutStart()
+rule_screen = getLayoutRules()
+tests_screen = getLayoutTests()
+gr.mount_gradio_app(app=app, blocks=start_screen, path="/start")
+gr.mount_gradio_app(app=app, blocks=rule_screen, path="/rules")
+gr.mount_gradio_app(app=app, blocks=tests_screen, path="/tests")
 # Maybe into function
