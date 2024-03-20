@@ -4,13 +4,14 @@ import gradio as gr
 app = FastAPI()
 
 
-# def app() -> FastAPI:
-#    pass
+def app() -> FastAPI:
+    pass
 
 
-# def Btn1_RerouteToLayout2():
-#     # TODO: Find a way to reroute on button press
-#     pass
+# TODO: Find a way to reroute on button presss
+def Btn1_RerouteToLayout2():
+    pass
+
 
 # TODO: Make page look good (center markdown)
 def getLayoutStart() -> gr.Blocks:
