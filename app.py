@@ -12,7 +12,7 @@ app = FastAPI()
 #     # TODO: Find a way to reroute on button press
 #     pass
 
-# TODO: Make page look good
+# TODO: Make page look good (center markdown)
 def getLayoutStart() -> gr.Blocks:
     with gr.Blocks() as layout:
         gr.Markdown("""# Learning Finish""")
