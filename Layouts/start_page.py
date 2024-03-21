@@ -1,13 +1,10 @@
 import gradio as gr
-from Style.style import GetStyleStartPage
+import Layouts.Style.style as st
 
-style = GetStyleStartPage()
-
-# TODO Looks and Logic
-
+# TODO Looks
 
 def getLayoutStart() -> gr.Blocks:
-    with gr.Blocks(theme=gr.themes.Soft(), css=style) as layout:
+    with gr.Blocks(theme=gr.themes.Soft(), css=st.GetStyleStartPage()) as layout:
         gr.Markdown("""# Learning Finish""")
         gr.Markdown("""The assisted finnish-learning experience""")
         button = gr.Button(value="New Game", link="/rules")

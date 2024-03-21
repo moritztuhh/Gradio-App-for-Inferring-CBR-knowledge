@@ -1,8 +1,11 @@
 import gradio as gr
+import Layouts.Style.style as st
 
 #TODO Looks and Logic
+style = st.GetStyleRulesPage()
+
 def getLayoutRules() -> gr.Blocks:
-    with gr.Blocks() as layout:
+    with gr.Blocks(theme=gr.themes.Soft(), css=style) as layout:
         gr.Markdown(""" In the following, you will be presented with X finnish words in theire nominative form.
                    You will have to enter the inessive form of the words.
                    """)
