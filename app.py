@@ -1,17 +1,13 @@
 from fastapi import FastAPI
+from fastapi.responses import RedirectResponse
 import gradio as gr
 from Layouts import *
 
 app = FastAPI()
 
 
-def app() -> FastAPI:
-    pass
-
-
-# def Btn1_RerouteToLayout2():
-#     # TODO: Find a way to reroute on button press
-#     pass
+# def app() -> FastAPI:
+#    pass
 
 start_screen = start_page.getLayoutStart()
 rule_screen = rules_page.getLayoutRules()
@@ -25,4 +21,12 @@ gr.mount_gradio_app(app=app, blocks=tests_screen, path="/tests")
 gr.mount_gradio_app(app=app, blocks=score_screen, path="/score")
 gr.mount_gradio_app(app=app, blocks=esti_screen, path="/estimation")
 gr.mount_gradio_app(app=app, blocks=recomm_screen, path="/recommendations")
+
+
+@app.get("/")
+def redirect():
+    response = RedirectResponse(url='/start')
+    return response
+
+
 # Maybe into function
