@@ -1,138 +1,139 @@
 
 def GetStyleStartPage():
-    # Find a way to access button
     return """
-        //Header
         h1 {
             text-align: center;
             display:block;
             margin-top: 1em;
             font-size: 10em;
         }
-        // Markdown
         p {
             text-align: center;
             font-size: 3em;
             display:block; 
         }
-        //a {
-        //    background-color: #04AA6D;
-        //    width: 50%;
-        //    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
-        //}
-        #start_button {
+        #continue_button {
             margin: auto;
-            width: 50%;
+            width: 35%;
             box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
         }
         """
 
 
 def GetStyleRulesPage():
-    # Find a way to access button
     return """
         h1 {
             text-align: center;
             display:block;
-            margin-top: 1em;
-            font-size: 10em;
+            margin-top: 0.5em;
+            font-size: 3em;
         }
         p {
             text-align: center;
-            font-size: 1em;
+            font-size: 2em;
             display:block; 
         }
-        button {
-            background-color: #04AA6D;
-            width: 50%
+        #continue_button {
+            margin: auto;
+            width: 35%;
             box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
         }
         """
 
 
 def GetStyleTestsPage():
-    # Find a way to access button
     return """
         h1 {
             text-align: center;
             display:block;
-            margin-top: 1em;
-            font-size: 5em;
+            margin-top: 0.5em;
+            font-size: 3em;
         }
         p {
             text-align: center;
-            font-size: 1.5em;
+            font-size: 2em;
             display:block; 
         }
-        button {
-            background-color: #04AA6D;
-            width: 50%
+        #continue_button {
+            margin: auto;
+            width: 35%;
             box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
         }
         """
 
 
 def GetStyleScorePage():
-    # Find a way to access button
     return """
         h1 {
             text-align: center;
             display:block;
-            margin-top: 1em;
-            font-size: 10em;
+            margin-top: 0.5em;
+            font-size: 3em;
         }
         p {
             text-align: center;
-            font-size: 3em;
+            font-size: 2em;
             display:block; 
         }
-        button {
-            background-color: #04AA6D;
-            width: 50%
+        #continue_button {
+            margin: auto;
+            width: 35%;
             box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
         }
         """
 
 
 def GetStyleRecommendationPage():
-    # Find a way to access button
+    #TODO find a way to change the size of the buttons (normal sizing does not work,
+    # since the buttons are in a gradio row). maybe change gradio row size?
     return """
         h1 {
             text-align: center;
             display:block;
-            margin-top: 1em;
-            font-size: 10em;
+            margin-top: 0.5em;
+            font-size: 3em;
         }
         p {
             text-align: center;
-            font-size: 3em;
+            font-size: 2em;
             display:block; 
         }
-        button {
-            background-color: #04AA6D;
-            width: 50%
+        #continue_button {
+            margin: auto;
+            width: 30%;
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+        }
+        #go_back_button {
+            margin: auto;
+            width: 30%;
             box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
         }
         """
 
 
 def GetStyleEstimationPage():
-    # Find a way to access button
+    #TODO find a way to change the size of the buttons (normal sizing does not work,
+    # since the buttons are in a gradio row). maybe change gradio row size?
     return """
         h1 {
             text-align: center;
             display:block;
-            margin-top: 1em;
-            font-size: 10em;
+            margin-top: 0.5em;
+            font-size: 3em;
         }
         p {
             text-align: center;
-            font-size: 3em;
+            font-size: 2em;
             display:block; 
         }
-        button {
-            background-color: #04AA6D;
-            width: 50%
+        #continue_button {
+            margin: auto;
+            width: 30%;
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+        }
+        #go_back_button {
+            margin: auto;
+            width: 30%;
             box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
         }
         """

@@ -11,7 +11,9 @@ def getLayoutRecommendation() -> gr.Blocks:
         #TODO add dynamic space for case-display (The number of cases may vary!!!)
         #TODO what if no recommendations?
         with gr.Row():
-            bbutton = gr.Button(value="quit", link="/start") #TODO delete cache of "last" player
-            cbutton = gr.Button(value="redo tests", link="/tests") #does redoing the tests even make sense?
+            bbutton = gr.Button(value="quit", link="/start",
+                                elem_id="go_back_button") #TODO delete cache of "last" player
+            cbutton = gr.Button(value="redo tests", link="/tests",
+                                elem_id="continue_button") #does redoing the tests even make sense?
     layout.queue()
     return layout

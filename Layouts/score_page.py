@@ -6,8 +6,10 @@ style= st.GetStyleScorePage()
 
 def getLayoutScore() -> gr.Blocks:
     with gr.Blocks(theme=gr.themes.Soft(),css=style) as layout:
-        gr.Markdown("""# your score is: 
+        gr.Markdown("""# Score """)
+        gr.Markdown(""" your score is: 
                     """)
-        button = gr.Button(value="continue", link="/estimation")
+        button = gr.Button(value="continue", link="/estimation",
+                           elem_id="continue_button")
     layout.queue()
     return layout

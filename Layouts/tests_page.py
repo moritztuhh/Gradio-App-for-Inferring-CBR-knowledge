@@ -9,6 +9,7 @@ def getLayoutTests() -> gr.Blocks:
         gr.Markdown("""# Tests 
                     """) #TODO add test count/progress
     #TODO add submit button
-        button = gr.Button(value="continue", link="/score") #Only for path-testing!
+        button = gr.Button(value="continue", link="/score",
+                           elem_id="continue_button") #Only for path-testing!
     layout.queue()
     return layout
