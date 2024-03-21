@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 import gradio as gr
+from Layouts import *
 
 app = FastAPI()
 
@@ -8,40 +9,20 @@ def app() -> FastAPI:
     pass
 
 
-# TODO: Find a way to reroute on button presss
-def Btn1_RerouteToLayout2():
-    pass
+# def Btn1_RerouteToLayout2():
+#     # TODO: Find a way to reroute on button press
+#     pass
 
-
-# TODO: Make page look good (center markdown)
-def getLayoutStart() -> gr.Blocks:
-    with gr.Blocks() as layout:
-        gr.Markdown("""# Learning Finish""")
-        gr.Markdown("""The assisted finnish learning experience""")
-        button = gr.Button()
-    layout.queue()
-    return layout
-
-
-# TODO: Logic and Look
-def getLayout2() -> gr.Blocks:
-    with gr.Blocks() as layout:
-        gr.Markdown(""" In the following, you will be presented with X finnish words in theire nominative form.
-                   You will have to enter the inessive form of the words.
-                   """)
-        gr.Markdown(""" You can choose Y random cards with examples in order to pratice the
-                   transformation of the words.""")
-        gr.Markdown(""" At the end you will be presented with your personal score.
-                   """)
-        gr.Markdown(""" After this, the AI will shpw you the cards it thinks you've seen and recommend
-                   new/other cards for the practice and to reach a higher score!""")
-    layout.queue()
-    return layout
-
-
-block1 = getLayoutStart()
-block2 = getLayout2()
-gr.mount_gradio_app(app=app, blocks=block1, path="/block1")
-gr.mount_gradio_app(app=app, blocks=block2, path="/block2")
-
+start_screen = start_page.getLayoutStart()
+rule_screen = rules_page.getLayoutRules()
+tests_screen = tests_page.getLayoutTests()
+score_screen = score_page.getLayoutScore()
+esti_screen = estimation_page.getLayoutEstimation()
+recomm_screen = recommendation_page.getLayoutRecommendation()
+gr.mount_gradio_app(app=app, blocks=start_screen, path="/start")
+gr.mount_gradio_app(app=app, blocks=rule_screen, path="/rules")
+gr.mount_gradio_app(app=app, blocks=tests_screen, path="/tests")
+gr.mount_gradio_app(app=app, blocks=score_screen, path="/score")
+gr.mount_gradio_app(app=app, blocks=esti_screen, path="/estimation")
+gr.mount_gradio_app(app=app, blocks=recomm_screen, path="/recommendations")
 # Maybe into function
