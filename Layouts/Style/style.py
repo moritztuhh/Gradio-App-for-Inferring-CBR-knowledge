@@ -40,7 +40,7 @@ def GetStyleRulesPage():
         }
         """
 
-
+#TODO fix left and right spacing of row
 def GetStyleTestsPage():
     return """
         h1 {
@@ -48,11 +48,13 @@ def GetStyleTestsPage():
             display:block;
             margin-top: 0.5em;
             font-size: 3em;
+            margin-bottom: 1em
         }
-        p {
+        p { 
+            margin-top: 1.5em;
             text-align: center;
-            font-size: 2em;
-            display:block; 
+            font-size: 2.5em;
+            font-weight: bold;
         }
         #continue_button {
             margin: auto;
