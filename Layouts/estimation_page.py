@@ -13,7 +13,6 @@ def getLayoutEstimation() -> gr.Blocks:
         gr.Markdown("""# Estimation """)
         gr.Markdown(""" Estimation of cards you have chosen: 
                     """)
-        # TODO add dynamic space for case-display (The number of cases may vary!!!)
         gr.Dataframe(
             value = data.retrieveEstimation(cursor, numberofcases),
             headers = ["nominative", "inessive"],
