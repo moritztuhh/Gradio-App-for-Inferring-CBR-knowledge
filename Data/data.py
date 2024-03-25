@@ -9,6 +9,7 @@ The Server should have a Database named CaseDB
 import mysql.connector
 from mysql.connector.cursor import MySQLCursor
 import logging
+import pandas as pd
 
 logging.getLogger().setLevel(logging.INFO)
 
@@ -102,6 +103,23 @@ def retrieveRandomCase(cursor: MySQLCursor, numberOfTestCases:int):
     
     logging.info(msg="Successfully retrieved random words")
     return words_2d_array
+
+# TODO get Recommendations from AI 
+# For now, it only returns random words from DB
+def retrieveRecommendations(cursor: MySQLCursor, numberOfTestCases:int):
+    result = retrieveRandomCase(cursor, numberOfTestCases)
+    #TODO Magic
+    resultdf= pd.DataFrame(result, columns=["Nominative", "Inessive"])
+    return resultdf
+
+
+# TODO get estimation from AI
+# For now, it only returns random words from DB
+def retrieveEstimation(cursor: MySQLCursor, numberOfTestCases:int):
+    result = retrieveRandomCase(cursor, numberOfTestCases)
+    #TODO Magic
+    resultdf = pd.DataFrame(result, columns=["Nominative", "Inessive"])
+    return resultdf
 
 
 #Example Usage

@@ -1,10 +1,7 @@
 import gradio as gr
 import Layouts.Style.style as st
 import Data.data as data
-from fastapi import FastAPI
-from fastapi.responses import RedirectResponse
 
-app = FastAPI()
 
 # Establish database connection
 db = data.createDB()
@@ -19,6 +16,8 @@ test_cases = data.retrieveRandomCase(cursor, numberoftests)
 #TODO Looks and Logic
 style = st.GetStyleTestsPage()
 
+#TODO: Fix global variables
+
 def getLayoutTests() -> gr.Blocks:
     
     with gr.Blocks(theme=gr.themes.Soft(), css=style) as layout:
@@ -26,7 +25,8 @@ def getLayoutTests() -> gr.Blocks:
             global test_cases
             global index_test_cases
             index_test_cases += 1  
-            if (index_test_cases == numberoftests):
+            if (index_test_cases == numberoftests): 
+                index_test_cases = 0
                 return {continue_button: gr.Button(visible=True), 
                        row: gr.Row(visible = False)
                        }
