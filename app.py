@@ -24,7 +24,7 @@ gr.mount_gradio_app(app=app, blocks=recomm_screen, path="/recommendations")
 
 
 @app.get("/")
-def redirect():
+def redirectToStart():
     response = RedirectResponse(url='/start')
     return response
 

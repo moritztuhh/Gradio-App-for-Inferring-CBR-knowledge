@@ -84,7 +84,7 @@ def retrieveRandomCase(cursor: MySQLCursor, numberOfTestCases:int):
     logging.info(msg="Start retrieving random cases")
     cursor.execute("USE CaseDB;")
     
-    # Query to retrieve 15 random words
+    # Query to retrieve numberOfTestCases random words
     query = f"SELECT nominative, inessive FROM words ORDER BY RAND() LIMIT {numberOfTestCases};"
     cursor.execute(query)
     
@@ -104,7 +104,7 @@ def retrieveRandomCase(cursor: MySQLCursor, numberOfTestCases:int):
     return words_2d_array
 
 
-#Sample Usage
+#Example Usage
 if (__name__ == '__main__'):
     global mydb
     mydb = createDB()
