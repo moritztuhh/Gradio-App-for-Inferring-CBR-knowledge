@@ -1,5 +1,5 @@
 '''
-Please make sure before using the code that you have a local instance of MySqlServer running.
+Before using the code, please make sure that you have a local instance of MySqlServer is running.
 Maybe the connection part has to be adjusted depending on the Server
 
 This file contains useful functions to work with the data
