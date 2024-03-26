@@ -144,17 +144,17 @@ def getlastrun(cursor: MySQLCursor):
     cursor.execute(query)
 
     #if nothing is in runs 
-    result = cursor.fetchall()[0]
+    result = cursor.fetchall()
     if result == []:
         return 0
-    else: return result[0]
+    else: 
+        return result[0][0]
 
 
 # This is for Inserting the user input into the first answer column or Second answer column
 def InsertIntoRunsFirstRound(cursor, runId, position, wordID, answer):
     logging.info("Start Inserting First Round")
     query = "INSERT INTO runs (run, position, word_id, answer) VALUES (%s, %s, %s, %s)"
-    print(runId, position, wordID, answer)
     cursor.execute(query, (int(runId), int(position), int(wordID), str(answer)))
     logging.info("Inserting First Round Completed")
 
@@ -177,10 +177,11 @@ if (__name__ == '__main__'):
     cursor = mydb.cursor()
     with cursor:
         #cursor.execute("DROP TABLE runs")
+        #mydb.commit()
         #cursor.execute("DROP TABLE words")
         createTableWords(cursor)
         createTableRuns(cursor)
-        fillDB('Data/data.txt', cursor)
+        #fillDB('Data/data.txt', cursor)
         random_words = retrieveRandomCase(cursor, 5)
         print(getlastrun(cursor))
     print(random_words)
