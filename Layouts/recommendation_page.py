@@ -4,7 +4,7 @@ import Data.data as data
 
 #TODO: adjust styling for table-display
 #css for styling
-style =st.GetStyleRecommendationPage()
+style = st.GetStyleRecommendationPage()
 
 #establish database connection
 db = data.createDB()
