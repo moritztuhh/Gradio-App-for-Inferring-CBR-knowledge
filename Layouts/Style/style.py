@@ -40,7 +40,6 @@ def GetStyleRulesPage():
         }
         """
 
-#TODO fix left and right spacing of row
 def GetStyleTestsPage():
     return """
         h1 {
@@ -86,8 +85,7 @@ def GetStyleScorePage():
 
 
 def GetStyleRecommendationPage():
-    #TODO find a way to change the size of the buttons (normal sizing does not work,
-    # since the buttons are in a gradio row). maybe change gradio row size?
+    #TODO adjust button sizes
     return """
         h1 {
             text-align: center;
@@ -114,8 +112,7 @@ def GetStyleRecommendationPage():
 
 
 def GetStyleEstimationPage():
-    #TODO find a way to change the size of the buttons (normal sizing does not work,
-    # since the buttons are in a gradio row). maybe change gradio row size?
+    #TODO adjust button sizes
     return """
         h1 {
             text-align: center;
