@@ -8,11 +8,15 @@ cursor = db.cursor()
 
 #retrieve Cases from database 
 index_test_cases = 0
-numberoftests = 5
-test_cases = data.retrieveRandomCase(cursor, numberoftests)
+number_of_tests = 5
+test_cases = data.retrieveRandomCase(cursor, number_of_tests)
 
-#get new run id
+#get new run id -- For every new run please restart the application
+#otherwise the won't be updated
 runId = data.getlastrun(cursor) + 1
+
+# This is for checking if the user is repeating the test
+FirstRound = True
 
 #css for styling
 style = st.GetStyleTestsPage()
@@ -26,20 +30,36 @@ def getLayoutTests() -> gr.Blocks:
         def submit(answer):
             global test_cases
             global index_test_cases
+            global FirstRound
 
+            #Logic for Database, Inserting User Input
+            if (FirstRound):
+                word_id = test_cases.iloc[index_test_cases]['id']
+                position = index_test_cases + 1
+                data.InsertIntoRunsFirstRound(cursor, runId, position, word_id, answer)
+                db.commit()
+            else:
+                word_id = test_cases.iloc[index_test_cases]['id']
+                position = index_test_cases + 1
+                data.InsertIntoRunsSecondRound(cursor, runId, position, word_id, answer)
+                db.commit()
             #increasing the index with each button-click
             index_test_cases += 1  
+            position += 1
+
 
             #when the index reaches the end of the test-cases, the index is set to 0 (in case the tests are redone), the visibility
             #of the test-UI is turned off and the visibility of the the continue button is turned on
             if (index_test_cases == number_of_tests): 
+                FirstRound = False
                 index_test_cases = 0    
+                position = 1
                 return {continue_button: gr.Button(visible=True), 
                        row: gr.Row(visible = False)
                        }
             
             #display next case
-            return {output: gr.Textbox(value = test_cases[index_test_cases][0])}
+            return {output: gr.Textbox(value = test_cases.iloc[index_test_cases]['nominative'])}
         
         #header
         gr.Markdown("""# Tests 

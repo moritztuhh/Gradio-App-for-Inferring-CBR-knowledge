@@ -43,7 +43,7 @@ def createTableRuns(cursor: MySQLCursor):
         position INT,
         word_id INT,
         FOREIGN KEY (word_id) REFERENCES words(id),
-        answer VARCHAR(255)
+        answer VARCHAR(255),
         answer2 VARCHAR(255)
     );"""
     cursor.execute(query)
@@ -51,6 +51,7 @@ def createTableRuns(cursor: MySQLCursor):
     logging.info(msg="Successfully Created Table runs")
 
     mydb.commit()
+
 # Fills words with content from data.txt (must only be called ones)
 def fillDB(filename, cursor : MySQLCursor):
     cursor.execute("USE CaseDB")
@@ -121,8 +122,9 @@ def retrieveRandomCase(cursor: MySQLCursor, numberOfTestCases:int):
 # For now, it only returns random words from DB
 def retrieveRecommendations(cursor: MySQLCursor, numberOfTestCases:int):
     result = retrieveRandomCase(cursor, numberOfTestCases)
+    columns = ["nominative", "inessive"]
+    resultdf = pd.DataFrame(result, columns=columns)
     #TODO Magic
-    resultdf= pd.DataFrame(result, columns=["Nominative", "Inessive"])
     return resultdf
 
 
@@ -130,8 +132,9 @@ def retrieveRecommendations(cursor: MySQLCursor, numberOfTestCases:int):
 # For now, it only returns random words from DB
 def retrieveEstimation(cursor: MySQLCursor, numberOfTestCases:int):
     result = retrieveRandomCase(cursor, numberOfTestCases)
+    columns = ["nominative", "inessive"]
+    resultdf = pd.DataFrame(result, columns=columns)
     #TODO Magic
-    resultdf = pd.DataFrame(result, columns=["Nominative", "Inessive"])
     return resultdf
 
 
@@ -141,11 +144,30 @@ def getlastrun(cursor: MySQLCursor):
     cursor.execute(query)
 
     #if nothing is in runs 
-    result = cursor.fetchall()
+    result = cursor.fetchall()[0]
     if result == []:
         return 0
-    else: return result
+    else: return result[0]
 
+
+# This is for Inserting the user input into the first answer column or Second answer column
+def InsertIntoRunsFirstRound(cursor, runId, position, wordID, answer):
+    logging.info("Start Inserting First Round")
+    query = "INSERT INTO runs (run, position, word_id, answer) VALUES (%s, %s, %s, %s)"
+    print(runId, position, wordID, answer)
+    cursor.execute(query, (int(runId), int(position), int(wordID), str(answer)))
+    logging.info("Inserting First Round Completed")
+
+# Finding that exact same column from first round for inserting second answer  
+def InsertIntoRunsSecondRound(cursor, runId, position, wordID, answer):
+    logging.info("Start Inserting Second Round")
+    query = """UPDATE runs SET answer2 = %s 
+               WHERE run = %s AND position = %s"""    
+    cursor.execute(query, (str(answer), int(runId), int(position)))
+    logging.info("Start Second First Round")
+
+def calculateScore():
+    pass
 
 
 #Example Usage
@@ -154,8 +176,8 @@ if (__name__ == '__main__'):
     mydb = createDB()
     cursor = mydb.cursor()
     with cursor:
-        cursor.execute("DROP TABLE runs")
-        cursor.execute("DROP TABLE words")
+        #cursor.execute("DROP TABLE runs")
+        #cursor.execute("DROP TABLE words")
         createTableWords(cursor)
         createTableRuns(cursor)
         fillDB('Data/data.txt', cursor)
