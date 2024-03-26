@@ -2,7 +2,7 @@ import gradio as gr
 import Layouts.Style.style as st
 
 #css for styling
-style = st.GetStyleStartPage
+style = st.GetStyleStartPage()
 
 #layout for start-page
 def getLayoutStart() -> gr.Blocks:
