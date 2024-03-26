@@ -13,13 +13,16 @@ index_test_cases = 0
 numberoftests = 5
 test_cases = data.retrieveRandomCase(cursor, numberoftests)
 
+#get new run id
+runId = data.getlastrun(cursor) + 1
+
 #TODO Looks and Logic
 style = st.GetStyleTestsPage()
+
 
 #TODO: Fix global variables
 
 def getLayoutTests() -> gr.Blocks:
-    
     with gr.Blocks(theme=gr.themes.Soft(), css=style) as layout:
         def submit(answer):
             global test_cases
@@ -28,17 +31,16 @@ def getLayoutTests() -> gr.Blocks:
             if (index_test_cases == numberoftests): 
                 index_test_cases = 0
                 return {continue_button: gr.Button(visible=True), 
-                       row: gr.Row(visible = False)
-                       }
-            return {output: gr.Textbox(value = test_cases[index_test_cases][0])}
+                       row: gr.Row(visible = False)}
+            return {output: gr.Textbox(value = test_cases.iloc[index_test_cases]['nominative'])}
         gr.Markdown("""# Tests 
                     """)
         continue_button = gr.Button(value="continue", link="/score",
                            elem_id="continue_button", visible=False)
         with gr.Row(visible=True) as row:
             with gr.Column(1):
-                output = gr.Textbox(label="question", value=test_cases[index_test_cases][0], elem_id="caseBox")
-            gr.Markdown(value="→")
+                output = gr.Textbox(label="question", value=test_cases.iloc[index_test_cases]['nominative'], elem_id="caseBox")
+            gr.Markdown(value="→", elem_id="arrow")
             with gr.Column(1):
                 input = gr.Textbox(label="answer", elem_id="answerBox")
                 submit_btn = gr.Button("Submit", elem_id="submit_btn")
@@ -47,3 +49,4 @@ def getLayoutTests() -> gr.Blocks:
     return layout
 
 #TODO add functionality
+

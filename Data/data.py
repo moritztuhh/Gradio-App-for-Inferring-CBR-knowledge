@@ -25,14 +25,32 @@ def createDB():
     return mydb
 
 # Creates table named words where all words from data.txt are saved
-def createTable(cursor : MySQLCursor):
-    query = "CREATE TABLE IF NOT EXISTS words (nominative VARCHAR(255), inessive VARCHAR(255), word_type INT);"
+def createTableWords(cursor : MySQLCursor):
+    query = """CREATE TABLE IF NOT EXISTS words (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        nominative VARCHAR(255), 
+        inessive VARCHAR(255), 
+        word_type INT);"""
     cursor.execute(query)
 
-    logging.info(msg="Successfully Created Table")
+    logging.info(msg="Successfully Created Table words")
 
     mydb.commit()
 
+def createTableRuns(cursor: MySQLCursor):
+    query = """ CREATE TABLE IF NOT EXISTS runs (
+        run INT,
+        position INT,
+        word_id INT,
+        FOREIGN KEY (word_id) REFERENCES words(id),
+        answer VARCHAR(255)
+        answer2 VARCHAR(255)
+    );"""
+    cursor.execute(query)
+
+    logging.info(msg="Successfully Created Table runs")
+
+    mydb.commit()
 # Fills words with content from data.txt (must only be called ones)
 def fillDB(filename, cursor : MySQLCursor):
     cursor.execute("USE CaseDB")
@@ -80,29 +98,24 @@ def retrieveType(cursor : MySQLCursor, word_type):
     logging.info(msg="Successfully retrieved type")
     return result
 
-# Returns n number of test cases randomized(is called in tests_page.py)
+# Returns n number of test cases randomized(is called in tests_page.py) as dataframe
 def retrieveRandomCase(cursor: MySQLCursor, numberOfTestCases:int):
     logging.info(msg="Start retrieving random cases")
     cursor.execute("USE CaseDB;")
     
     # Query to retrieve numberOfTestCases random words
-    query = f"SELECT nominative, inessive FROM words ORDER BY RAND() LIMIT {numberOfTestCases};"
+    query = f"SELECT id, nominative, inessive FROM words ORDER BY RAND() LIMIT {numberOfTestCases};"
     cursor.execute(query)
     
     # Fetch all the selected rows
     random_words = cursor.fetchall()
     
-    # 2D array to store nominative and inessive forms
-    words_2d_array = []
-    
-    # Iterate through each row and append nominative and inessive forms to the 2D array
-    for row in random_words:
-        nominative = row[0]
-        inessive = row[1]
-        words_2d_array.append([nominative, inessive])
+    # Create Dataframe
+    columns = ["id", "nominative", "inessive"]
+    wordsDf = pd.DataFrame(random_words, columns=columns)
     
     logging.info(msg="Successfully retrieved random words")
-    return words_2d_array
+    return wordsDf
 
 # TODO get Recommendations from AI 
 # For now, it only returns random words from DB
@@ -122,16 +135,31 @@ def retrieveEstimation(cursor: MySQLCursor, numberOfTestCases:int):
     return resultdf
 
 
+#Returns the id of the last run if thats empty return 0
+def getlastrun(cursor: MySQLCursor):
+    query = "SELECT run FROM runs ORDER BY run DESC LIMIT 1"
+    cursor.execute(query)
+
+    #if nothing is in runs 
+    result = cursor.fetchall()
+    if result == []:
+        return 0
+    else: return result
+
+
+
 #Example Usage
 if (__name__ == '__main__'):
     global mydb
     mydb = createDB()
     cursor = mydb.cursor()
-    cursor.execute("DROP TABLE words")
-    createTable(cursor)
-    fillDB('Data/data.txt', cursor)
-    random_words = retrieveRandomCase(cursor, str(15))
+    with cursor:
+        cursor.execute("DROP TABLE runs")
+        cursor.execute("DROP TABLE words")
+        createTableWords(cursor)
+        createTableRuns(cursor)
+        fillDB('Data/data.txt', cursor)
+        random_words = retrieveRandomCase(cursor, 5)
+        print(getlastrun(cursor))
     print(random_words)
     mydb.close()
-    
-

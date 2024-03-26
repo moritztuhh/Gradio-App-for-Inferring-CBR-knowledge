@@ -50,10 +50,13 @@ def GetStyleTestsPage():
             font-size: 3em;
             margin-bottom: 1em
         }
+        #arrow {
+            font-size: 10em;
+        }
         p { 
-            margin-top: 1.5em;
+            margin-top: 0.05em;
             text-align: center;
-            font-size: 2.5em;
+            font-size: 6em;
             font-weight: bold;
         }
         #continue_button {
