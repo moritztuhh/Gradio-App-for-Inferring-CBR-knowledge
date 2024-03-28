@@ -2,9 +2,11 @@
 ## Description
 This project is an interactive application for inferring Case-Base-Reasoner's knowledge based on the work of Murena and Al-Ghossein ("Inferring Case-Based Reasoner's Knowledge to Enhance Interactivity", 2021). 
 This app let's a user take tests on given data, calculates a score and showcases the results of the inferrence-process in form of tables.
+Gradio was used for the creation of the interfaces and layouts. You can find the Gradio documentation here:
+[Gradio](https://www.gradio.app/docs/interface)
 
 ## Functionality 
-- pip install requirements.txt
+- pip install -r requirements.txt
 - uvicorn app:app --reload
 
 Before using the code, please make sure that you have a local instance of MySqlServer running.
