@@ -55,15 +55,13 @@ def getLayoutTests() -> gr.Blocks:
                 index_test_cases = 0    
                 position = 1
                 return {continue_button: gr.Button(visible=True), 
-                       row: gr.Row(visible = False)
-                       }
+                       row: gr.Row(visible = False)}
             
             #display next case
             return {output: gr.Textbox(value = test_cases.iloc[index_test_cases]['nominative'])}
         
         #header
-        gr.Markdown("""# Tests 
-                    """)
+        gr.Markdown("""# Tests""")
         
         #(hidden) continue button
         continue_button = gr.Button(value="continue", link="/score",

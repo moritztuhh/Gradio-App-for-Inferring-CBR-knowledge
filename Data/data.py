@@ -166,8 +166,44 @@ def InsertIntoRunsSecondRound(cursor, runId, position, wordID, answer):
     cursor.execute(query, (str(answer), int(runId), int(position)))
     logging.info("Start Second First Round")
 
-def calculateScore():
-    pass
+def CalculateFirstScoreForRun(cursor: MySQLCursor) -> int:
+    run_id = getlastrun(cursor)
+    query = """
+        SELECT r.answer, w.inessive
+        FROM runs r
+        INNER JOIN words w ON r.word_id = w.id
+        WHERE r.run = %s
+    """
+    cursor.execute(query, (run_id,))
+    rows = cursor.fetchall()
+
+    score = 0
+    for row in rows:
+        if row[0] == row[1]:
+            score += 1
+
+    logging.info(f"Score for run {run_id}: {score}")
+    return score
+
+# Calculates Score for Score page (Problems can occur due to enconding of finnish letters)
+def CalculateSecondScoreForRun(cursor: MySQLCursor) -> int:
+    run_id = getlastrun(cursor)
+    query = """
+        SELECT r.answer2, w.inessive
+        FROM runs r
+        INNER JOIN words w ON r.word_id = w.id
+        WHERE r.run = %s
+    """
+    cursor.execute(query, (run_id,))
+    rows = cursor.fetchall()
+
+    score = 0
+    for row in rows:
+        if row[0] == row[1]:
+            score += 1
+
+    logging.info(f"Score for run {run_id}: {score}")
+    return score
 
 
 #Example Usage
@@ -176,13 +212,9 @@ if (__name__ == '__main__'):
     mydb = createDB()
     cursor = mydb.cursor()
     with cursor:
-        #cursor.execute("DROP TABLE runs")
-        #mydb.commit()
-        #cursor.execute("DROP TABLE words")
         createTableWords(cursor)
         createTableRuns(cursor)
-        #fillDB('Data/data.txt', cursor)
+        fillDB('Data/data.txt', cursor)
         random_words = retrieveRandomCase(cursor, 5)
-        print(getlastrun(cursor))
     print(random_words)
     mydb.close()
