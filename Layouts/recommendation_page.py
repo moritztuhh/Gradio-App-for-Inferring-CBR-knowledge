@@ -2,7 +2,6 @@ import gradio as gr
 import Layouts.Style.style as st
 import Data.data as data
 
-#TODO: adjust styling for table-display
 #css for styling
 style = st.GetStyleRecommendationPage()
 

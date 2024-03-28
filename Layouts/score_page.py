@@ -20,9 +20,8 @@ def getLayoutScore() -> gr.Blocks:
         gr.Markdown("""# Score """)
         gr.Markdown(f"your score is: {score}")
         
-        #TODO: get infos from DB
         #TODO: calculate score
-        #TODO:display score
+        #TODO: display score (properly, currently score of last run)
         
         #continue button
         button = gr.Button(value="continue", link="/estimation",

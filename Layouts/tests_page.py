@@ -80,5 +80,3 @@ def getLayoutTests() -> gr.Blocks:
     layout.queue()
     return layout
 
-#TODO add functionality
-#TODO send user input to DB
